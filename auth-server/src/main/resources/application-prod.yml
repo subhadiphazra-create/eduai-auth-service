@@ -56,7 +56,7 @@ security:
     cookie-secure: ${JWT_COOKIE_SECURE:true}
     cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
     cookie-same-site: ${JWT_COOKIE_SAME_SITE:None}
-    cookie-domain: ${JWT_COOKIE_DOMAIN}
+    cookie-domain: ${JWT_COOKIE_DOMAIN:}
 
 mail-service:
   url: ${MAIL_SERVICE_URL:http://localhost:8082}
