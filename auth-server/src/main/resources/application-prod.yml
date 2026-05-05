@@ -12,9 +12,9 @@ spring:
             loggerLevel: basic
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${DB_URL:jdbc:postgresql://db.bspwsclsyocvqcktnmpp.supabase.co:5432/postgres?sslmode=require}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:wODF8UdXw14lMrHP}
     dialect: org.hibernate.dialect.PostgreSQLDialect
     driver-class-name: org.postgresql.Driver
     hikari:
@@ -48,15 +48,15 @@ logging:
 
 security:
   jwt:
-    secret: ${JWT_SECRET}
-    issuer: ${JWT_ISSUER}
+    secret: ${JWT_SECRET:235aac92f113fa6981e3ab30444a6df83d14cbef442b3cb10a97f406e5f248965937c551656030832bb56be8426750e7ebf5af5b079a4d36c51201fcf2adcc90}
+    issuer: ${JWT_ISSUER:auth.myplatform.com}
     access-ttl-seconds: ${JWT_ACCESS_TTL_SECONDS:900}
     refresh-ttl-seconds: ${JWT_REFRESH_TTL_SECONDS:604800}
     refresh-token-cookie-name: ${JWT_REFRESH_COOKIE_NAME:platform_refresh_token}
     cookie-secure: ${JWT_COOKIE_SECURE:true}
     cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
     cookie-same-site: ${JWT_COOKIE_SAME_SITE:None}
-    cookie-domain: ${JWT_COOKIE_DOMAIN:}
+    cookie-domain: ${JWT_COOKIE_DOMAIN}
 
 mail-service:
   url: ${MAIL_SERVICE_URL:http://localhost:8082}
