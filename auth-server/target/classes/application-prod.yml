@@ -15,6 +15,7 @@ spring:
     url: ${DB_URL:jdbc:postgresql://db.bspwsclsyocvqcktnmpp.supabase.co:5432/postgres?sslmode=require}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:wODF8UdXw14lMrHP}
+    dialect: org.hibernate.dialect.PostgreSQLDialect
     driver-class-name: org.postgresql.Driver
     hikari:
       connection-timeout: 20000
@@ -22,18 +23,17 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
         format_sql: false
         jdbc:
           time_zone: UTC
-        temp:
-          use_jdbc_metadata_defaults: false
+
 
 server:
-  port: ${PORT:8080}
+  port: ${PORT:8081}
 
 management:
   endpoints:
@@ -56,7 +56,7 @@ security:
     cookie-secure: ${JWT_COOKIE_SECURE:true}
     cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
     cookie-same-site: ${JWT_COOKIE_SAME_SITE:None}
-    cookie-domain: ${JWT_COOKIE_DOMAIN}
+    cookie-domain: ${JWT_COOKIE_DOMAIN:}
 
 mail-service:
-  url: ${MAIL_SERVICE_URL}
+  url: ${MAIL_SERVICE_URL:http://localhost:8082}
