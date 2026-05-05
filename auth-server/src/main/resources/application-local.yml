@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: auth-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/eduai_auth_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 20
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+server:
+  port: ${PORT:8081}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: INFO
+    com.eduai.auth: DEBUG
+
+# ── JWT ──────────────────────────────────────────────────────────────────────
+security:
+  jwt:
+    # Must be at least 64 bytes (512 bits). Change before deploying!
+    secret: ${JWT_SECRET:235aac92f113fa6981e3ab30444a6df83d14cbef442b3cb10a97f406e5f248965937c551656030832bb56be8426750e7ebf5af5b079a4d36c51201fcf2adcc90}
+    issuer: ${JWT_ISSUER:auth.myplatform.com}
+    access-ttl-seconds:  ${JWT_ACCESS_TTL_SECONDS:900}        # 15 min
+    refresh-ttl-seconds: ${JWT_REFRESH_TTL_SECONDS:604800}    # 7 days
+    refresh-token-cookie-name: ${JWT_REFRESH_COOKIE_NAME:platform_refresh_token}
+    cookie-secure:    ${JWT_COOKIE_SECURE:false}   # true in production
+    cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
+    cookie-same-site: ${JWT_COOKIE_SAME_SITE:Lax}
+    cookie-domain:    ${JWT_COOKIE_DOMAIN:}
+
+# ── Mail Service (Feign) ──────────────────────────────────────────────────────
+mail-service:
+  url: ${MAIL_SERVICE_URL:http://localhost:8082}
+
+spring.cloud.openfeign.client.config.mail-service:
+  connectTimeout: 5000
+  readTimeout: 15000
+  loggerLevel: basic
